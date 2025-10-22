@@ -31,12 +31,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
-### Docker ###
-# Docker volumes data (if any)
-docker-data/
-
-### OS ###
-.DS_Store
-Thumbs.db
-ehthumbs.db
