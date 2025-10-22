@@ -1,0 +1,25 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: marvel_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: marvel_db
+      MYSQL_USER: marvel_user
+      MYSQL_PASSWORD: marvel_password
+      MYSQL_ROOT_PASSWORD: root_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./db/init:/docker-entrypoint-initdb.d
+    networks:
+      - marvel_network
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  marvel_network:
+    driver: bridge
