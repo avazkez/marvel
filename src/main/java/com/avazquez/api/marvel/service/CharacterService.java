@@ -42,5 +42,5 @@ public interface CharacterService {
    * @throws EntityNotFoundException if no character exists with the provided ID
    * @throws IllegalArgumentException if characterId is null or negative
    */
-  CharacterDto.CharacterInfoDto findById(Long characterId);
+  CharacterDto.CharacterInfoDto findInfoById(Long characterId);
 }
