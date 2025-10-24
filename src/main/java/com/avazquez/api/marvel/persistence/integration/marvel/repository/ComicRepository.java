@@ -1,8 +1,17 @@
 package com.avazquez.api.marvel.persistence.integration.marvel.repository;
 
+import com.avazquez.api.marvel.criteria.ComicSearchCriteria;
 import com.avazquez.api.marvel.dto.MyPageable;
+import com.avazquez.api.marvel.persistence.integration.marvel.MarvelApiConfig;
 import com.avazquez.api.marvel.persistence.integration.marvel.dto.ComicDto;
+import com.avazquez.api.marvel.persistence.integration.marvel.mapper.ComicQueryParameterMapper;
+import com.fasterxml.jackson.databind.JsonNode;
+import jakarta.annotation.PostConstruct;
+import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -27,38 +36,36 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ComicRepository {
 
+  /** Marvel API configuration for authentication and endpoint parameters. */
+  @Autowired private MarvelApiConfig marvelApiConfig;
+
+  /** Base path for Marvel API endpoints, injected from application properties. */
+  @Value("${integration.marvel.base-path}")
+  private String basePath;
+
+  /** Full path for comic endpoint, constructed after bean initialization. */
+  private String comicPath;
+
+  /** Initializes the comic API endpoint path after bean construction. */
+  @PostConstruct
+  private void setPath() {
+    comicPath = basePath.concat("/").concat("comics");
+  }
+
   /**
-   * Retrieves a paginated list of Marvel comics with optional character filtering.
-   *
-   * <p>This method queries the Marvel API to fetch comic data based on the provided pagination and
-   * filtering criteria. When a character ID is specified, it filters comics that feature that
-   * specific character.
-   *
-   * <p>Implementation Details:
-   *
-   * <ul>
-   *   <li>Constructs Marvel API query with pagination parameters
-   *   <li>Applies character filter if characterId is provided
-   *   <li>Handles API rate limiting and retry logic
-   *   <li>Transforms API response to ComicDto objects
-   *   <li>Implements caching for frequently requested data
-   * </ul>
+   * Retrieves a paginated list of Marvel comics with optional filtering.
    *
    * @param pageable Pagination parameters containing offset and limit for result set
-   * @param characterId Optional character ID to filter comics featuring that character; null for no
-   *     filtering
+   * @param criteria ComicSearchCriteria encapsulating all comic search/filter parameters
    * @return List of ComicDto objects matching the criteria; empty list if no results found
-   * @throws MarvelApiException if Marvel API returns an error or is unreachable
-   * @throws IllegalArgumentException if pagination parameters are invalid
    */
-  public List<ComicDto> findAll(MyPageable pageable, Long characterId) {
-    // TODO: Implementation goes here
-    // 1. Validate pagination parameters
-    // 2. Build Marvel API query URL with filters
-    // 3. Execute HTTP request with retry logic
-    // 4. Parse JSON response and transform to DTOs
-    // 5. Apply caching strategy
-    return null;
+  public List<ComicDto> findAll(MyPageable pageable, ComicSearchCriteria criteria) {
+    Map<String, String> marvelQueryParams = marvelApiConfig.getAuthenticationQueryParams();
+
+    marvelQueryParams.putAll(ComicQueryParameterMapper.mapComicCriteria(pageable, criteria));
+    JsonNode response = httpClientService.doGet(comicPath, marvelQueryParams, JsonNode.class);
+
+    return ComicMapper.toDtoList(response);
   }
 
   /**
@@ -84,12 +91,11 @@ public class ComicRepository {
    * @throws MarvelApiException if Marvel API returns an error or is unreachable
    */
   public ComicDto findById(Long comicId) {
-    // TODO: Implementation goes here
-    // 1. Validate comicId parameter
-    // 2. Check cache for existing data
-    // 3. Query Marvel API if needed
-    // 4. Transform response to DTO
-    // 5. Update cache with result
-    return null;
+    Map<String, String> marvelQueryParams = marvelApiConfig.getAuthenticationQueryParams();
+
+    String finalUrl = comicPath.concat("/").concat(Long.toString(comicId));
+    JsonNode response = httpClientService.doGet(finalUrl, marvelQueryParams, JsonNode.class);
+
+    return ComicMapper.toDtoList(response).get(0);
   }
 }
