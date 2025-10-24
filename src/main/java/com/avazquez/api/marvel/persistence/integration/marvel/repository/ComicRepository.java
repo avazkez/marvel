@@ -4,7 +4,10 @@ import com.avazquez.api.marvel.criteria.ComicSearchCriteria;
 import com.avazquez.api.marvel.dto.MyPageable;
 import com.avazquez.api.marvel.persistence.integration.marvel.MarvelApiConfig;
 import com.avazquez.api.marvel.persistence.integration.marvel.dto.ComicDto;
+import com.avazquez.api.marvel.persistence.integration.marvel.mapper.ComicMapper;
 import com.avazquez.api.marvel.persistence.integration.marvel.mapper.ComicQueryParameterMapper;
+import com.avazquez.api.marvel.service.HttpClientService;
+import com.avazquez.api.marvel.util.MarvelApiHeaderUtil;
 import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityNotFoundException;
@@ -39,6 +42,12 @@ public class ComicRepository {
   /** Marvel API configuration for authentication and endpoint parameters. */
   @Autowired private MarvelApiConfig marvelApiConfig;
 
+  /**
+   * HTTP client service abstraction for making external Marvel API calls. Injected by Spring for
+   * loose coupling and testability.
+   */
+  @Autowired private HttpClientService httpClientService;
+
   /** Base path for Marvel API endpoints, injected from application properties. */
   @Value("${integration.marvel.base-path}")
   private String basePath;
@@ -63,7 +72,9 @@ public class ComicRepository {
     Map<String, String> marvelQueryParams = marvelApiConfig.getAuthenticationQueryParams();
 
     marvelQueryParams.putAll(ComicQueryParameterMapper.mapComicCriteria(pageable, criteria));
-    JsonNode response = httpClientService.doGet(comicPath, marvelQueryParams, JsonNode.class);
+    JsonNode response =
+        httpClientService.doGet(
+            comicPath, marvelQueryParams, MarvelApiHeaderUtil.getDefaultHeaders(), JsonNode.class);
 
     return ComicMapper.toDtoList(response);
   }
@@ -94,7 +105,9 @@ public class ComicRepository {
     Map<String, String> marvelQueryParams = marvelApiConfig.getAuthenticationQueryParams();
 
     String finalUrl = comicPath.concat("/").concat(Long.toString(comicId));
-    JsonNode response = httpClientService.doGet(finalUrl, marvelQueryParams, JsonNode.class);
+    JsonNode response =
+        httpClientService.doGet(
+            finalUrl, marvelQueryParams, MarvelApiHeaderUtil.getDefaultHeaders(), JsonNode.class);
 
     return ComicMapper.toDtoList(response).get(0);
   }
