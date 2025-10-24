@@ -13,10 +13,11 @@ import org.springframework.stereotype.Repository;
  * information with various filtering and pagination options.
  *
  * <p>Data Sources:
+ *
  * <ul>
- *   <li>Marvel API - Primary source for comic data</li>
- *   <li>Local cache - For performance optimization</li>
- *   <li>Database - For persistent storage and offline capability</li>
+ *   <li>Marvel API - Primary source for comic data
+ *   <li>Local cache - For performance optimization
+ *   <li>Database - For persistent storage and offline capability
  * </ul>
  *
  * @author Alex Vazquez
@@ -34,12 +35,13 @@ public class ComicRepository {
    * specific character.
    *
    * <p>Implementation Details:
+   *
    * <ul>
-   *   <li>Constructs Marvel API query with pagination parameters</li>
-   *   <li>Applies character filter if characterId is provided</li>
-   *   <li>Handles API rate limiting and retry logic</li>
-   *   <li>Transforms API response to ComicDto objects</li>
-   *   <li>Implements caching for frequently requested data</li>
+   *   <li>Constructs Marvel API query with pagination parameters
+   *   <li>Applies character filter if characterId is provided
+   *   <li>Handles API rate limiting and retry logic
+   *   <li>Transforms API response to ComicDto objects
+   *   <li>Implements caching for frequently requested data
    * </ul>
    *
    * @param pageable Pagination parameters containing offset and limit for result set
@@ -63,16 +65,16 @@ public class ComicRepository {
    * Retrieves detailed information for a specific Marvel comic by its unique identifier.
    *
    * <p>This method fetches comprehensive comic data including title, description, publication
-   * details, and thumbnail information. It first checks local cache before querying the Marvel
-   * API.
+   * details, and thumbnail information. It first checks local cache before querying the Marvel API.
    *
    * <p>Implementation Details:
+   *
    * <ul>
-   *   <li>Checks local cache for existing comic data</li>
-   *   <li>Queries Marvel API if cache miss occurs</li>
-   *   <li>Validates comic exists and is accessible</li>
-   *   <li>Transforms API response to ComicDto</li>
-   *   <li>Updates cache with retrieved data</li>
+   *   <li>Checks local cache for existing comic data
+   *   <li>Queries Marvel API if cache miss occurs
+   *   <li>Validates comic exists and is accessible
+   *   <li>Transforms API response to ComicDto
+   *   <li>Updates cache with retrieved data
    * </ul>
    *
    * @param comicId The unique identifier of the comic to retrieve; must be positive

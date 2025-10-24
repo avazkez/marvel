@@ -1,0 +1,33 @@
+{
+  "groups": [
+    {
+      "name": "marvel.api",
+      "type": "com.avazquez.api.marvel.persistence.integration.marvel.MarvelApiConfig",
+      "description": "Configuration properties for Marvel API integration."
+    }
+  ],
+  "properties": [
+    {
+      "name": "marvel.api.public-key",
+      "type": "java.lang.String",
+      "description": "Marvel API public key for authentication requests.",
+      "sourceType": "com.avazquez.api.marvel.persistence.integration.marvel.MarvelApiConfig"
+    },
+    {
+      "name": "marvel.api.private-key",
+      "type": "java.lang.String",
+      "description": "Marvel API private key for hash generation in authentication.",
+      "sourceType": "com.avazquez.api.marvel.persistence.integration.marvel.MarvelApiConfig"
+    }
+  ],
+  "hints": [
+    {
+      "name": "marvel.api.public-key",
+      "description": "Get your public key from https://developer.marvel.com/account"
+    },
+    {
+      "name": "marvel.api.private-key",
+      "description": "Get your private key from https://developer.marvel.com/account"
+    }
+  ]
+}
