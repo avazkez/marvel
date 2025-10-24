@@ -133,6 +133,6 @@ public class CharacterController {
   public ResponseEntity<CharacterDto.CharacterInfoDto> findCharacterById(
       @Parameter(description = "Unique identifier of the character", required = true) @PathVariable
           Long characterId) {
-    return ResponseEntity.ok(characterService.findById(characterId));
+    return ResponseEntity.ok(characterService.findInfoById(characterId));
   }
 }
