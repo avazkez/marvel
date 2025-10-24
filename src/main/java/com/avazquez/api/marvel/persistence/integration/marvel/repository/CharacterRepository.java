@@ -4,7 +4,10 @@ import com.avazquez.api.marvel.criteria.CharacterSearchCriteria;
 import com.avazquez.api.marvel.dto.MyPageable;
 import com.avazquez.api.marvel.persistence.integration.marvel.MarvelApiConfig;
 import com.avazquez.api.marvel.persistence.integration.marvel.dto.CharacterDto;
+import com.avazquez.api.marvel.persistence.integration.marvel.mapper.CharacterMapper;
 import com.avazquez.api.marvel.persistence.integration.marvel.mapper.MarvelQueryParameterMapper;
+import com.avazquez.api.marvel.service.HttpClientService;
+import com.avazquez.api.marvel.util.MarvelApiHeaderUtil;
 import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.annotation.PostConstruct;
 import java.util.List;
@@ -49,9 +52,14 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class CharacterRepository {
-
   /** Marvel API configuration for authentication and endpoint parameters. */
   @Autowired private MarvelApiConfig marvelApiConfig;
+
+  /**
+   * HTTP client service abstraction for making external Marvel API calls. Injected by Spring for
+   * loose coupling and testability.
+   */
+  @Autowired private HttpClientService httpClientService;
 
   /** Base path for Marvel API endpoints, injected from application properties. */
   @Value("${integration.marvel.base-path}")
@@ -77,7 +85,12 @@ public class CharacterRepository {
   public List<CharacterDto> findAll(MyPageable pageable, CharacterSearchCriteria criteria) {
     Map<String, String> marvelQueryParams =
         MarvelQueryParameterMapper.mapCharacterCriteria(pageable, criteria, marvelApiConfig);
-    JsonNode response = httpClientService.doGet(characterPath, marvelQueryParams, JsonNode.class);
+    JsonNode response =
+        httpClientService.doGet(
+            characterPath,
+            marvelQueryParams,
+            MarvelApiHeaderUtil.getDefaultHeaders(),
+            JsonNode.class);
     return CharacterMapper.toDtoList(response);
   }
 
@@ -90,7 +103,9 @@ public class CharacterRepository {
   public CharacterDto.CharacterInfoDto findInfoById(Long characterId) {
     Map<String, String> marvelQueryParams = marvelApiConfig.getAuthenticationQueryParams();
     String finalUrl = characterPath.concat("/").concat(Long.toString(characterId));
-    JsonNode response = httpClientService.doGet(finalUrl, marvelQueryParams, JsonNode.class);
-    return haracterMapper.toDtoList(response).get(0);
+    JsonNode response =
+        httpClientService.doGet(
+            finalUrl, marvelQueryParams, MarvelApiHeaderUtil.getDefaultHeaders(), JsonNode.class);
+    return CharacterMapper.toInfoDtoList(response).get(0);
   }
 }
