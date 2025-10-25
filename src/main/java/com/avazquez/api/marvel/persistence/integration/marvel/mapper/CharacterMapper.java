@@ -106,7 +106,10 @@ public class CharacterMapper {
     }
     JsonNode thumbnailNode = characterNode.get("thumbnail");
     ThumbnailDto thumbnailDto = ThumbnailMapper.toDto(thumbnailNode);
-    String image = thumbnailDto != null ? thumbnailDto.path().concat(".").concat(thumbnailDto.extension()) : "";
+    String image =
+        thumbnailDto != null
+            ? thumbnailDto.path().concat(".").concat(thumbnailDto.extension())
+            : "";
     JsonNode descNode = characterNode.get("description");
     String description = descNode != null ? descNode.asText("") : "";
     return new CharacterDto.CharacterInfoDto(image, description);

@@ -1,7 +1,7 @@
 package com.avazquez.api.marvel.service;
 
-import com.avazquez.api.marvel.dto.MyPageable;
 import com.avazquez.api.marvel.criteria.ComicSearchCriteria;
+import com.avazquez.api.marvel.dto.MyPageable;
 import com.avazquez.api.marvel.persistence.integration.marvel.dto.ComicDto;
 import java.util.List;
 
@@ -20,10 +20,13 @@ public interface ComicService {
   /**
    * Retrieves a paginated list of Marvel comics based on search criteria.
    *
-   * <p>This method supports filtering by passing a {@link ComicSearchCriteria} object, which can include:
+   * <p>This method supports filtering by passing a {@link ComicSearchCriteria} object, which can
+   * include:
+   *
    * <ul>
-   *   <li><b>characterId</b>: Character ID to filter comics that feature that character</li>
+   *   <li><b>characterId</b>: Character ID to filter comics that feature that character
    * </ul>
+   *
    * Results are paginated using the provided {@link MyPageable} parameter.
    *
    * @param pageable Pagination information containing offset and limit

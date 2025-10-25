@@ -19,12 +19,15 @@ public interface CharacterService {
   /**
    * Retrieves a paginated list of Marvel characters based on search criteria.
    *
-   * <p>This method supports filtering by passing a {@link CharacterSearchCriteria} object, which can include:
+   * <p>This method supports filtering by passing a {@link CharacterSearchCriteria} object, which
+   * can include:
+   *
    * <ul>
-   *   <li><b>name</b>: Character name filter (partial match)</li>
-   *   <li><b>comics</b>: Array of comic IDs to filter characters</li>
-   *   <li><b>series</b>: Array of series IDs to filter characters</li>
+   *   <li><b>name</b>: Character name filter (partial match)
+   *   <li><b>comics</b>: Array of comic IDs to filter characters
+   *   <li><b>series</b>: Array of series IDs to filter characters
    * </ul>
+   *
    * Results are paginated using the provided {@link MyPageable} parameter.
    *
    * @param pageable Pagination information containing offset and limit
@@ -32,7 +35,8 @@ public interface CharacterService {
    * @return List of CharacterDto objects matching the criteria
    * @throws IllegalArgumentException if pageable contains invalid pagination parameters
    */
-  List<CharacterDto> findAll(MyPageable pageable, com.avazquez.api.marvel.criteria.CharacterSearchCriteria criteria);
+  List<CharacterDto> findAll(
+      MyPageable pageable, com.avazquez.api.marvel.criteria.CharacterSearchCriteria criteria);
 
   /**
    * Retrieves detailed information for a specific Marvel character by ID.
