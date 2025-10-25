@@ -4,6 +4,9 @@ import com.avazquez.api.marvel.exception.ApiErrorException;
 import com.avazquez.api.marvel.service.HttpClientService;
 import java.net.URI;
 import java.util.Map;
+import javax.net.ssl.*;
+import java.security.SecureRandom;
+import java.security.cert.X509Certificate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -28,6 +31,25 @@ public class RestTemplateService implements HttpClientService {
    * Spring RestTemplate used for executing HTTP requests. Injected by Spring container.
    */
   @Autowired private RestTemplate restTemplate;
+
+  // Static block to disable SSL validation for development
+  static {
+    try {
+      TrustManager[] trustAllCerts = new TrustManager[]{
+        new X509TrustManager() {
+          public X509Certificate[] getAcceptedIssuers() { return null; }
+          public void checkClientTrusted(X509Certificate[] certs, String authType) { }
+          public void checkServerTrusted(X509Certificate[] certs, String authType) { }
+        }
+      };
+      SSLContext sc = SSLContext.getInstance("TLS");
+      sc.init(null, trustAllCerts, new SecureRandom());
+      HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+      HttpsURLConnection.setDefaultHostnameVerifier((hostname, session) -> true);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
 
   /** {@inheritDoc} */
   @Override

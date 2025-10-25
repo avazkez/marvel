@@ -17,19 +17,22 @@ import java.util.List;
 public interface CharacterService {
 
   /**
-   * Retrieves a paginated list of Marvel characters with optional filtering criteria.
+   * Retrieves a paginated list of Marvel characters based on search criteria.
    *
-   * <p>This method supports filtering by character name, associated comics, and series. The results
-   * are returned in a paginated format based on the provided MyPageable parameter.
+   * <p>This method supports filtering by passing a {@link CharacterSearchCriteria} object, which can include:
+   * <ul>
+   *   <li><b>name</b>: Character name filter (partial match)</li>
+   *   <li><b>comics</b>: Array of comic IDs to filter characters</li>
+   *   <li><b>series</b>: Array of series IDs to filter characters</li>
+   * </ul>
+   * Results are paginated using the provided {@link MyPageable} parameter.
    *
    * @param pageable Pagination information containing offset and limit
-   * @param name Optional character name filter (can be null for no filtering)
-   * @param comics Optional array of comic IDs to filter characters (can be null)
-   * @param series Optional array of series IDs to filter characters (can be null)
+   * @param criteria Search/filter criteria for characters
    * @return List of CharacterDto objects matching the criteria
    * @throws IllegalArgumentException if pageable contains invalid pagination parameters
    */
-  List<CharacterDto> findAll(MyPageable pageable, String name, int[] comics, int[] series);
+  List<CharacterDto> findAll(MyPageable pageable, com.avazquez.api.marvel.criteria.CharacterSearchCriteria criteria);
 
   /**
    * Retrieves detailed information for a specific Marvel character by ID.

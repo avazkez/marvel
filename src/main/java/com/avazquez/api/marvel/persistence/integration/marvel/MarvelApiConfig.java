@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -47,7 +47,6 @@ import org.springframework.stereotype.Component;
  *     Authorization</a>
  */
 @Component
-@ConfigurationProperties(prefix = "marvel.api")
 public class MarvelApiConfig {
 
   @Autowired
@@ -58,9 +57,11 @@ public class MarvelApiConfig {
   private long timestamp = new Date(System.currentTimeMillis()).getTime();
 
   /** Marvel API public key for authentication. */
+  @Value("${marvel.api.public-key}")
   private String publicKey;
 
   /** Marvel API private key for hash generation. */
+  @Value("${marvel.api.private-key}")
   private String privateKey;
 
   /**

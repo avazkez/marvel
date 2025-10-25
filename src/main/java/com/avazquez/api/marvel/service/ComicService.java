@@ -1,6 +1,7 @@
 package com.avazquez.api.marvel.service;
 
 import com.avazquez.api.marvel.dto.MyPageable;
+import com.avazquez.api.marvel.criteria.ComicSearchCriteria;
 import com.avazquez.api.marvel.persistence.integration.marvel.dto.ComicDto;
 import java.util.List;
 
@@ -17,19 +18,20 @@ import java.util.List;
 public interface ComicService {
 
   /**
-   * Retrieves a paginated list of Marvel comics with optional character filtering.
+   * Retrieves a paginated list of Marvel comics based on search criteria.
    *
-   * <p>This method supports filtering by character ID to find comics that feature specific
-   * characters. The results are returned in a paginated format based on the provided MyPageable
-   * parameter.
+   * <p>This method supports filtering by passing a {@link ComicSearchCriteria} object, which can include:
+   * <ul>
+   *   <li><b>characterId</b>: Character ID to filter comics that feature that character</li>
+   * </ul>
+   * Results are paginated using the provided {@link MyPageable} parameter.
    *
    * @param pageable Pagination information containing offset and limit
-   * @param characterId Optional character ID to filter comics that feature that character (can be
-   *     null for no filtering)
+   * @param criteria Search/filter criteria for comics
    * @return List of ComicDto objects matching the criteria
    * @throws IllegalArgumentException if pageable contains invalid pagination parameters
    */
-  List<ComicDto> findAll(MyPageable pageable, Long characterId);
+  List<ComicDto> findAll(MyPageable pageable, ComicSearchCriteria criteria);
 
   /**
    * Retrieves detailed information for a specific Marvel comic by ID.
