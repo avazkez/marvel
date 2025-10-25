@@ -3,6 +3,7 @@ package com.avazquez.api.marvel.controller;
 import com.avazquez.api.marvel.dto.MyPageable;
 import com.avazquez.api.marvel.persistence.integration.marvel.dto.CharacterDto;
 import com.avazquez.api.marvel.service.CharacterService;
+import com.avazquez.api.marvel.criteria.CharacterSearchCriteria;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -93,7 +94,12 @@ public class CharacterController {
           @RequestParam(defaultValue = "10")
           long limit) {
     MyPageable pageable = new MyPageable(offset, limit);
-    return ResponseEntity.ok(characterService.findAll(pageable, name, comics, series));
+    CharacterSearchCriteria criteria = CharacterSearchCriteria.builder()
+        .name(name)
+        .comics(comics)
+        .series(series)
+        .build();
+    return ResponseEntity.ok(characterService.findAll(pageable, criteria));
   }
 
   /**

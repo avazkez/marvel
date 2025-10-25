@@ -60,11 +60,17 @@ public class CharacterMapper {
     if (characterNode == null) {
       throw new IllegalArgumentException("Character JSON node cannot be null");
     }
-    long id = characterNode.path("id").asLong(-1); // -1 as fallback
-    String name = characterNode.path("name").asText("");
-    String description = characterNode.path("description").asText("");
-    String modified = characterNode.path("modified").asText("");
-    String resourceURI = characterNode.path("resourceURI").asText("");
+    JsonNode idNode = characterNode.get("id");
+    JsonNode nameNode = characterNode.get("name");
+    JsonNode descNode = characterNode.get("description");
+    JsonNode modNode = characterNode.get("modified");
+    JsonNode uriNode = characterNode.get("resourceURI");
+
+    long id = idNode != null ? idNode.asLong(-1) : -1;
+    String name = nameNode != null ? nameNode.asText("") : "";
+    String description = descNode != null ? descNode.asText("") : "";
+    String modified = modNode != null ? modNode.asText("") : "";
+    String resourceURI = uriNode != null ? uriNode.asText("") : "";
     return new CharacterDto(id, name, description, modified, resourceURI);
   }
 
@@ -98,11 +104,11 @@ public class CharacterMapper {
     if (characterNode == null) {
       throw new IllegalArgumentException("Character JSON node cannot be null");
     }
-
-    JsonNode thumbnailNode = characterNode.path("thumbnail");
+    JsonNode thumbnailNode = characterNode.get("thumbnail");
     ThumbnailDto thumbnailDto = ThumbnailMapper.toDto(thumbnailNode);
-    String image = thumbnailDto.path().concat(".").concat(thumbnailDto.extension());
-
-    return new CharacterDto.CharacterInfoDto(image, characterNode.get("description").asText(""));
+    String image = thumbnailDto != null ? thumbnailDto.path().concat(".").concat(thumbnailDto.extension()) : "";
+    JsonNode descNode = characterNode.get("description");
+    String description = descNode != null ? descNode.asText("") : "";
+    return new CharacterDto.CharacterInfoDto(image, description);
   }
 }
