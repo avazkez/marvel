@@ -1,9 +1,9 @@
 package com.avazquez.api.marvel.service.impl;
 
+import com.avazquez.api.marvel.criteria.ComicSearchCriteria;
 import com.avazquez.api.marvel.dto.MyPageable;
 import com.avazquez.api.marvel.persistence.integration.marvel.dto.ComicDto;
 import com.avazquez.api.marvel.persistence.integration.marvel.repository.ComicRepository;
-import com.avazquez.api.marvel.criteria.ComicSearchCriteria;
 import com.avazquez.api.marvel.service.ComicService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

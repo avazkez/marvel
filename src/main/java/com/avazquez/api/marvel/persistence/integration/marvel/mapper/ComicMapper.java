@@ -60,24 +60,24 @@ public class ComicMapper {
       throw new IllegalArgumentException("Comic JSON node cannot be null");
     }
 
-  JsonNode idNode = comicNode.get("id");
-  JsonNode titleNode = comicNode.get("title");
-  JsonNode descNode = comicNode.get("description");
-  JsonNode modNode = comicNode.get("modified");
-  JsonNode uriNode = comicNode.get("resourceUri");
-  JsonNode thumbNode = comicNode.get("thumbnail");
+    JsonNode idNode = comicNode.get("id");
+    JsonNode titleNode = comicNode.get("title");
+    JsonNode descNode = comicNode.get("description");
+    JsonNode modNode = comicNode.get("modified");
+    JsonNode uriNode = comicNode.get("resourceUri");
+    JsonNode thumbNode = comicNode.get("thumbnail");
 
-  ThumbnailDto thumbnailDto = ThumbnailMapper.toDto(thumbNode);
+    ThumbnailDto thumbnailDto = ThumbnailMapper.toDto(thumbNode);
 
-  ComicDto comicDto =
-    new ComicDto(
-      idNode != null ? idNode.asLong(-1) : -1,
-      titleNode != null ? titleNode.asText("") : "",
-      descNode != null ? descNode.asText("") : "",
-      modNode != null ? modNode.asText("") : "",
-      uriNode != null ? uriNode.asText("") : "",
-      thumbnailDto);
+    ComicDto comicDto =
+        new ComicDto(
+            idNode != null ? idNode.asLong(-1) : -1,
+            titleNode != null ? titleNode.asText("") : "",
+            descNode != null ? descNode.asText("") : "",
+            modNode != null ? modNode.asText("") : "",
+            uriNode != null ? uriNode.asText("") : "",
+            thumbnailDto);
 
-  return comicDto;
+    return comicDto;
   }
 }
