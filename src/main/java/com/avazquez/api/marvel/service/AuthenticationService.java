@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * Service for handling authentication logic, including login and logout operations.
+ *
  * <p>Uses Spring Security and JWT for authentication.
  *
  * @author Alex Vazquez
@@ -27,28 +28,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthenticationService {
 
-  /**
-   * Injected HttpSecurity for configuring logout and authentication.
-   */
+  /** Injected HttpSecurity for configuring logout and authentication. */
   @Autowired private HttpSecurity http;
 
-  /**
-   * Injected UserDetailsService for loading user information.
-   */
+  /** Injected UserDetailsService for loading user information. */
   @Autowired private UserDetailsService userDetailsService;
 
-  /**
-   * Injected AuthenticationManager for authenticating credentials.
-   */
+  /** Injected AuthenticationManager for authenticating credentials. */
   @Autowired private AuthenticationManager authenticationManager;
 
-  /**
-   * Injected JwtService for generating JWT tokens.
-   */
+  /** Injected JwtService for generating JWT tokens. */
   @Autowired private JwtService jwtService;
 
   /**
    * Authenticates a user and generates a JWT token.
+   *
    * <p>Loads user details, authenticates credentials, and issues JWT.
    *
    * @param loginRequest the login request containing username and password
@@ -71,9 +65,10 @@ public class AuthenticationService {
 
   /**
    * Generates extra claims for JWT token based on user details.
+   *
    * <ul>
-   *   <li>roles: user's role name</li>
-   *   <li>authorities: list of granted authorities</li>
+   *   <li>roles: user's role name
+   *   <li>authorities: list of granted authorities
    * </ul>
    *
    * @param user the authenticated user
@@ -93,6 +88,7 @@ public class AuthenticationService {
 
   /**
    * Logs out the current user, clears authentication, and invalidates session.
+   *
    * <p>Deletes session cookies and handles logout exceptions.
    *
    * @throws RuntimeException if logout fails

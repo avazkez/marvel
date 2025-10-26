@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * REST controller for authentication endpoints (login and logout).
+ *
  * <p>Handles user authentication and session termination.
  *
  * @author Alex Vazquez
@@ -27,6 +28,7 @@ public class AuthenticationController {
 
   /**
    * Authenticates a user and returns a JWT token.
+   *
    * <p>Delegates authentication to {@link AuthenticationService}.
    *
    * @param loginRequest the login request containing username and password
@@ -39,6 +41,7 @@ public class AuthenticationController {
 
   /**
    * Logs out the current user and terminates the session.
+   *
    * <p>Delegates logout to {@link AuthenticationService}.
    */
   @PostMapping("/logout")
