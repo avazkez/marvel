@@ -32,7 +32,7 @@ public class OpenApiConfig {
    * @return OpenAPI configuration with API information, contact details, and servers
    */
   @Bean
-  public OpenAPI marvelOpenAPI() {
+  public OpenAPI marvelOpenApi() {
     Server devServer = new Server();
     devServer.setUrl("http://localhost:8080");
     devServer.setDescription("Development server");

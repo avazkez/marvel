@@ -6,6 +6,7 @@ import com.avazquez.api.marvel.service.AuthenticationService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +35,8 @@ public class AuthenticationController {
    * @param loginRequest the login request containing username and password
    * @return ResponseEntity containing the JWT token
    */
-  @PostMapping("/authenticate")
+  @PreAuthorize("permitAll")
+  @PostMapping("/login")
   public ResponseEntity<LoginResponse> authenticate(@RequestBody @Valid LoginRequest loginRequest) {
     return ResponseEntity.ok(authenticationService.authenticate(loginRequest));
   }
@@ -44,6 +46,7 @@ public class AuthenticationController {
    *
    * <p>Delegates logout to {@link AuthenticationService}.
    */
+  @PreAuthorize("permitAll")
   @PostMapping("/logout")
   public void logout() {
     authenticationService.logout();

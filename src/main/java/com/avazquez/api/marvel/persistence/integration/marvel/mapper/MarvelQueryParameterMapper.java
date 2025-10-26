@@ -64,10 +64,14 @@ public class MarvelQueryParameterMapper {
    * @return a comma-separated string representation of the array, or an empty string if null/empty
    */
   private static String joinIntArray(int[] array) {
-    if (array == null || array.length == 0) return "";
+    if (array == null || array.length == 0) {
+      return "";
+    }
     StringBuilder sb = new StringBuilder();
     for (int i : array) {
-      if (sb.length() > 0) sb.append(",");
+      if (sb.length() > 0) {
+        sb.append(",");
+      }
       sb.append(i);
     }
     return sb.toString();

@@ -27,7 +27,7 @@ public interface ComicService {
    *   <li><b>characterId</b>: Character ID to filter comics that feature that character
    * </ul>
    *
-   * Results are paginated using the provided {@link MyPageable} parameter.
+   * <p>Results are paginated using the provided {@link MyPageable} parameter.
    *
    * @param pageable Pagination information containing offset and limit
    * @param criteria Search/filter criteria for comics

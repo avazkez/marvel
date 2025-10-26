@@ -47,7 +47,9 @@ public class Role implements GrantedAuthority {
    */
   @Override
   public String getAuthority() {
-    if (name == null) return null;
+    if (name == null) {
+      return null;
+    }
     return "ROLE_".concat(name.name());
   }
 

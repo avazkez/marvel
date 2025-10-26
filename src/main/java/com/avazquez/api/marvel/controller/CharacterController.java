@@ -57,7 +57,8 @@ public class CharacterController {
   @Operation(
       summary = "Get all Marvel characters",
       description =
-          "Retrieve a paginated list of Marvel characters with optional filtering by name, comics, and series")
+          "Retrieve a paginated list of Marvel characters with optional filtering by name, comics, "
+              + "and series")
   @ApiResponses(
       value = {
         @ApiResponse(
@@ -112,7 +113,8 @@ public class CharacterController {
   @Operation(
       summary = "Get character by ID",
       description =
-          "Retrieve detailed information for a specific Marvel character by their unique identifier")
+          "Retrieve detailed information for a specific Marvel character by their unique "
+              + "identifier")
   @ApiResponses(
       value = {
         @ApiResponse(

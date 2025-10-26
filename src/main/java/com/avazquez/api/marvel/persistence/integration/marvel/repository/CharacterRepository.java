@@ -35,21 +35,6 @@ import org.springframework.stereotype.Repository;
  * @version 1.0
  * @since 1.0
  */
-/**
- * Repository for Marvel character data access operations.
- *
- * <p>Handles integration with the Marvel API and local data sources for character queries. Provides
- * filtering, pagination, and retrieval methods for character data. <b>Dependencies:</b>
- *
- * <ul>
- *   <li>{@link MarvelApiConfig} for authentication and API configuration
- *   <li>Injected base path for API endpoint construction
- * </ul>
- *
- * @author Alex Vazquez
- * @version 1.0
- * @since 1.0
- */
 @Repository
 public class CharacterRepository {
   /** Marvel API configuration for authentication and endpoint parameters. */

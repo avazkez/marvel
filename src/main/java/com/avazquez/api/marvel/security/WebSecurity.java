@@ -8,15 +8,15 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
-@Configuration
-@EnableWebSecurity
-@EnableMethodSecurity
 /**
  * Configuration class for Spring Security settings.
  *
  * <p>Enables web security and method security for the application. Defines the security filter
  * chain bean that configures CSRF protection, session management, and request authorization.
  */
+@Configuration
+@EnableWebSecurity
+@EnableMethodSecurity
 public class WebSecurity {
 
   /**
