@@ -209,17 +209,25 @@ This application follows security best practices by using environment variables 
 curl -X GET "http://localhost:8080/api/characters?page=0&size=10"
 ```
 
-
 **Get a comic by ID:**
 
 ```bash
 curl -X GET "http://localhost:8080/api/comics/123"
 ```
 
+## 🧪 API Testing with Postman
+
+This repository includes a ready-to-use Postman collection for testing the Marvel API endpoints.
+
+- Import the file `postman/api_test.postman_collection.json` into Postman.
+- The collection covers authentication, character, comic, and user interaction endpoints.
+- You can use the provided requests and environment to quickly validate API functionality.
+
+See the [Postman documentation](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/) for instructions on importing collections.
+
 ---
 
 ## 🏗️ Project Structure
-
 
 ```text
 src/
