@@ -27,11 +27,11 @@ public class JwtService {
 
   /** JWT expiration time in minutes, loaded from configuration. */
   @Value("${security.jwt.expiration-minutes}")
-  private long EXPIRATION_MIN;
+  private long expirationMin;
 
   /** Secret key for signing JWT tokens, loaded from configuration. */
   @Value("${security.jwt.secret-key}")
-  private String SECRET_KEY;
+  private String secretKey;
 
   /**
    * Generates a JWT token for the given user details and extra claims.
@@ -45,7 +45,7 @@ public class JwtService {
   public String generateToken(UserDetails userDetails, Map<String, Object> extraClaims) {
 
     Date issuedAt = new Date(System.currentTimeMillis());
-    Date expiration = new Date(System.currentTimeMillis() + EXPIRATION_MIN * 60 * 1000);
+    Date expiration = new Date(System.currentTimeMillis() + expirationMin * 60 * 1000);
 
     return Jwts.builder()
         .setClaims(extraClaims)
@@ -63,7 +63,7 @@ public class JwtService {
    * @return the signing {@link Key}
    */
   private Key generateKey() {
-    byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
+    byte[] keyBytes = Decoders.BASE64.decode(secretKey);
     return Keys.hmacShaKeyFor(keyBytes);
   }
 

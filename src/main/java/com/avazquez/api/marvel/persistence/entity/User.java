@@ -106,10 +106,14 @@ public class User implements UserDetails {
    */
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    if (role == null) return new ArrayList<>();
+    if (role == null) {
+      return new ArrayList<>();
+    }
     List<GrantedAuthority> authorities = new ArrayList<>();
     authorities.add(new SimpleGrantedAuthority(role.getAuthority()));
-    if (role.getGrantedPermissions() == null) return authorities;
+    if (role.getGrantedPermissions() == null) {
+      return authorities;
+    }
     role.getGrantedPermissions().stream()
         .forEach(
             grantedPermission -> {

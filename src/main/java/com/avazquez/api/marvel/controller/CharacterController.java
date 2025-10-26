@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,14 @@ import org.springframework.web.bind.annotation.RestController;
  * searching characters by various criteria and fetching individual character details.
  *
  * <p>Base path: {@code /api/characters}
+ *
+ * <p>Security:
+ *
+ * <ul>
+ *   <li><b>GET /api/characters</b>: Requires authority <code>character:read-all</code>
+ *   <li><b>GET /api/characters/{characterId}</b>: Requires authority <code>character:read-detail
+ *       </code>
+ * </ul>
  *
  * @author Alex Vazquez
  * @version 1.0
@@ -57,7 +66,8 @@ public class CharacterController {
   @Operation(
       summary = "Get all Marvel characters",
       description =
-          "Retrieve a paginated list of Marvel characters with optional filtering by name, comics, and series")
+          "Retrieve a paginated list of Marvel characters with optional filtering by name, comics, "
+              + "and series")
   @ApiResponses(
       value = {
         @ApiResponse(
@@ -76,6 +86,7 @@ public class CharacterController {
             description = "Internal server error",
             content = @Content)
       })
+  @PreAuthorize("hasAuthority('character:read-all')")
   @GetMapping
   public ResponseEntity<List<CharacterDto>> findAll(
       @Parameter(description = "Character name filter (partial match)")
@@ -112,7 +123,8 @@ public class CharacterController {
   @Operation(
       summary = "Get character by ID",
       description =
-          "Retrieve detailed information for a specific Marvel character by their unique identifier")
+          "Retrieve detailed information for a specific Marvel character by their unique "
+              + "identifier")
   @ApiResponses(
       value = {
         @ApiResponse(
@@ -132,6 +144,7 @@ public class CharacterController {
             description = "Internal server error",
             content = @Content)
       })
+  @PreAuthorize("hasAuthority('character:read-detail')")
   @GetMapping("/{characterId}")
   public ResponseEntity<CharacterDto.CharacterInfoDto> findCharacterById(
       @Parameter(description = "Unique identifier of the character", required = true) @PathVariable

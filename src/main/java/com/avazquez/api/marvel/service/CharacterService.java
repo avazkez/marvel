@@ -28,7 +28,7 @@ public interface CharacterService {
    *   <li><b>series</b>: Array of series IDs to filter characters
    * </ul>
    *
-   * Results are paginated using the provided {@link MyPageable} parameter.
+   * <p>Results are paginated using the provided {@link MyPageable} parameter.
    *
    * @param pageable Pagination information containing offset and limit
    * @param criteria Search/filter criteria for characters

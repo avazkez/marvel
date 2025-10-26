@@ -11,13 +11,13 @@ package com.avazquez.api.marvel.persistence.integration.marvel.dto;
  * @param name The name of the character (e.g., "Spider-Man", "Iron Man")
  * @param description A brief description or biography of the character
  * @param modified The date when the character information was last modified
- * @param resourceURI The URI pointing to the full character resource in the Marvel API
+ * @param resourceUri The URI pointing to the full character resource in the Marvel API
  * @author Alex Vazquez
  * @version 1.0
  * @since 1.0
  */
 public record CharacterDto(
-    Long id, String name, String description, String modified, String resourceURI) {
+    Long id, String name, String description, String modified, String resourceUri) {
 
   /**
    * Data Transfer Object representing detailed character information.

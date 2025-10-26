@@ -27,14 +27,14 @@ public class ComicServiceImpl implements ComicService {
 
   @Autowired private ComicRepository comicRepository;
 
-  @Override
   /** {@inheritDoc} */
+  @Override
   public List<ComicDto> findAll(MyPageable pageable, ComicSearchCriteria criteria) {
     return comicRepository.findAll(pageable, criteria);
   }
 
-  @Override
   /** {@inheritDoc} */
+  @Override
   public ComicDto findById(Long comicId) {
     return comicRepository.findById(comicId);
   }

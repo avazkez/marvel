@@ -64,14 +64,14 @@ public class CharacterMapper {
     JsonNode nameNode = characterNode.get("name");
     JsonNode descNode = characterNode.get("description");
     JsonNode modNode = characterNode.get("modified");
-    JsonNode uriNode = characterNode.get("resourceURI");
+    JsonNode uriNode = characterNode.get("resourceUri");
 
     long id = idNode != null ? idNode.asLong(-1) : -1;
     String name = nameNode != null ? nameNode.asText("") : "";
     String description = descNode != null ? descNode.asText("") : "";
     String modified = modNode != null ? modNode.asText("") : "";
-    String resourceURI = uriNode != null ? uriNode.asText("") : "";
-    return new CharacterDto(id, name, description, modified, resourceURI);
+    String resourceUri = uriNode != null ? uriNode.asText("") : "";
+    return new CharacterDto(id, name, description, modified, resourceUri);
   }
 
   /**

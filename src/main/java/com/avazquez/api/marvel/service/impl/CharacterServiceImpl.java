@@ -27,14 +27,14 @@ public class CharacterServiceImpl implements CharacterService {
 
   @Autowired private CharacterRepository characterRepository;
 
-  @Override
   /** {@inheritDoc} */
+  @Override
   public List<CharacterDto> findAll(MyPageable pageable, CharacterSearchCriteria criteria) {
     return characterRepository.findAll(pageable, criteria);
   }
 
-  @Override
   /** {@inheritDoc} */
+  @Override
   public CharacterDto.CharacterInfoDto findInfoById(Long characterId) {
     return characterRepository.findInfoById(characterId);
   }

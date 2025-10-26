@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,13 @@ import org.springframework.web.bind.annotation.RestController;
  * searching comics by various criteria and fetching individual comic details.
  *
  * <p>Base path: {@code /api/comics}
+ *
+ * <p>Security:
+ *
+ * <ul>
+ *   <li><b>GET /api/comics</b>: Requires authority <code>comic:read-all</code>
+ *   <li><b>GET /api/comics/{comicId}</b>: Requires authority <code>comic:read-by-id</code>
+ * </ul>
  *
  * @author Alex Vazquez
  * @version 1.0
@@ -74,6 +82,7 @@ public class ComicController {
             description = "Internal server error",
             content = @Content)
       })
+  @PreAuthorize("hasAuthority('comic:read-all')")
   @GetMapping
   public ResponseEntity<List<ComicDto>> findAll(
       @Parameter(description = "Character ID to filter comics that feature that character")
@@ -120,6 +129,7 @@ public class ComicController {
             description = "Internal server error",
             content = @Content)
       })
+  @PreAuthorize("hasAuthority('comic:read-by-id')")
   @GetMapping("/{comicId}")
   public ResponseEntity<ComicDto> findById(
       @Parameter(description = "Unique identifier of the comic", required = true) @PathVariable

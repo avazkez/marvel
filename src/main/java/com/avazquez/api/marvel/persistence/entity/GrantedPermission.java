@@ -6,6 +6,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.Getter;
 
 /**
@@ -19,6 +21,9 @@ import lombok.Getter;
  */
 @Entity
 @Getter
+@Table(
+    name = "granted_permission",
+    uniqueConstraints = @UniqueConstraint(columnNames = {"role_id", "permission_id"}))
 public class GrantedPermission {
   /** Unique identifier for the granted permission. */
   @Id
