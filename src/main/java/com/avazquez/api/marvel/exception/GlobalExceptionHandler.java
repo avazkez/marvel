@@ -1,5 +1,3 @@
-// TODO: Re-add GlobalExceptionHandler after resolving Swagger conflict
-
 // package com.avazquez.api.marvel.exception;
 
 // import com.avazquez.api.marvel.dto.exception.ApiErrorDto;
@@ -16,8 +14,7 @@
 // /**
 //  * Global exception handler for REST API errors.
 //  *
-//  * <p>This class intercepts exceptions thrown by controllers and provides consistent error
-// responses
+//  * <p>This class intercepts exceptions thrown by controllers and provides consistent error responses
 //  * using {@link ApiErrorDto}. It handles common cases such as HTTP client errors, access denied,
 //  * authentication failures, and generic server errors.
 //  *
@@ -38,8 +35,8 @@
 // public class GlobalExceptionHandler {
 
 //   /**
-//    * Handles all exceptions thrown by controllers and delegates to specific handlers based on
-// type.
+//    * Handles all exceptions thrown by controllers and delegates to specific handlers based on type.
+//    * Skips Swagger/OpenAPI endpoints to avoid breaking documentation UI.
 //    *
 //    * @param exception the thrown exception
 //    * @param request the HTTP servlet request
@@ -49,6 +46,13 @@
 //   @ExceptionHandler(Exception.class)
 //   public ResponseEntity<ApiErrorDto> handleGeneralExceptions(
 //       Exception exception, HttpServletRequest request, WebRequest webRequest) {
+//     String path = request.getRequestURI();
+//     if (path.startsWith("/v3/api-docs")
+//         || path.startsWith("/swagger")
+//         || path.startsWith("/swagger-ui")) {
+//       throw new RuntimeException(
+//           exception); // Rethrow as unchecked to let Spring handle Swagger/OpenAPI endpoints
+//     }
 //     if (exception instanceof HttpClientErrorException) {
 //       return this.handleHttpClientErrorException(
 //           (HttpClientErrorException) exception, request, webRequest);
@@ -82,8 +86,7 @@
 //     } else if (exception instanceof HttpClientErrorException.NotFound) {
 //       message = "The requested resource was not found in the external API.";
 //     } else if (exception instanceof HttpClientErrorException.Conflict) {
-//       message = "There is a conflict with the current state of the resource in the external
-// API.";
+//       message = "There is a conflict with the current state of the resource in the external API.";
 //     } else {
 //       message = "Unexpected error occurred when communicating with external API.";
 //     }
