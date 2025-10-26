@@ -1,12 +1,17 @@
 package com.avazquez.api.marvel.security;
 
+import com.avazquez.api.marvel.web.filter.JwtAuthenticationFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * Configuration class for Spring Security settings.
@@ -16,14 +21,20 @@ import org.springframework.security.web.SecurityFilterChain;
  */
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
+@EnableMethodSecurity(prePostEnabled = true)
 public class WebSecurity {
+
+  /** Injected JWT authentication filter for processing JWT tokens. */
+  @Autowired private JwtAuthenticationFilter jwtAuthenticationFilter;
+
+  @Autowired private AuthenticationProvider authenticationProvider;
 
   /**
    * Defines the security filter chain for HTTP requests.
    *
    * <p>- Disables CSRF protection (for stateless APIs). - Sets session management to stateless. -
-   * Permits all requests (no authentication required).
+   * Permits requests to '/error' endpoint for all users. - Requires authentication for all other
+   * endpoints.
    *
    * @param http the {@link HttpSecurity} to modify
    * @return the configured {@link SecurityFilterChain}
@@ -31,9 +42,16 @@ public class WebSecurity {
    */
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    return http.csrf(config -> config.disable())
+    return http.cors(Customizer.withDefaults())
+        .csrf(config -> config.disable())
         .sessionManagement(config -> config.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        // .authorizeHttpRequests(config -> config.anyRequest().permitAll())
+        .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+        .authorizeHttpRequests(
+            config -> {
+              config.requestMatchers("/error", "/auth/login", "/auth/logout").permitAll();
+              config.anyRequest().authenticated();
+            })
+        .authenticationProvider(authenticationProvider)
         .build();
   }
 }

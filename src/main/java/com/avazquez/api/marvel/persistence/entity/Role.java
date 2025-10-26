@@ -1,5 +1,6 @@
 package com.avazquez.api.marvel.persistence.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -34,6 +35,7 @@ public class Role implements GrantedAuthority {
 
   /** Name of the role (enum). */
   @Enumerated(EnumType.STRING)
+  @Column(unique = true, nullable = false)
   private RoleEnum name;
 
   /** List of permissions granted to this role. */
