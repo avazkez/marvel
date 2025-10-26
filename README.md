@@ -31,8 +31,6 @@ This application follows security best practices by using environment variables 
    - Create an account or sign in
    - Generate your public and private API keys
 
-
-
 3. **Set your environment variables:**
 
    If you use a `.env` file, you must export the variables before running the application:
@@ -69,7 +67,6 @@ This application follows security best practices by using environment variables 
 - MySQL 8.0 (local or Docker)
 - Marvel API credentials (see setup below)
 
-
 1. **Create a Marvel Account:**
    - Visit: <https://www.marvel.com/signin?referer=https%3A%2F%2Fdeveloper.marvel.com%2Faccount>
    - Sign up for a free Marvel account
@@ -83,6 +80,7 @@ This application follows security best practices by using environment variables 
    - **Private Key**: **KEEP SECRET** - used for server-side hash generation only
 
 **⚠️ Security Warning:** Never expose your private key in public repositories or client-side code!
+
 ### Local Development Setup
 
 1. **Clone the repository:**
@@ -94,24 +92,26 @@ This application follows security best practices by using environment variables 
 2. **Set up environment variables:** (See Security & Configuration section above)
 
 3. **Start the database:**
+
    ```bash
    docker-compose up -d mysql
    ```
 
 4. **Run the application:**
+
    ```bash
    ./mvnw spring-boot:run
    ```
 
-
-   - Swagger UI: <http://localhost:8080/swagger-ui/index.html>
-   - API Docs: <http://localhost:8080/v3/api-docs>
+- Swagger UI: <http://localhost:8080/swagger-ui/index.html>
+- API Docs: <http://localhost:8080/v3/api-docs>
 
 ---
+
 ## 🧪 Testing & Code Quality
 
-
 ### Run Tests
+
 ```bash
 ./mvnw test
 ```
@@ -124,20 +124,17 @@ This application follows security best practices by using environment variables 
 ./mvnw spotbugs:gui                  # View GUI (optional)
 ```
 
-
 **Checkstyle - Code Style:**
 
 ```bash
 ./mvnw checkstyle:check              # Check Google Java Style
 ```
 
-
 **Google Java Format:**
 
 ```bash
 ./mvnw com.spotify.fmt:fmt-maven-plugin:format  # Auto-format code
 ```
-
 
 **Run All Quality Checks:**
 
@@ -147,8 +144,6 @@ This application follows security best practices by using environment variables 
 
 ## 📚 API Endpoints
   
-
-
 ### Characters API
 
 - `GET /api/characters`  
@@ -159,8 +154,6 @@ This application follows security best practices by using environment variables 
 - `GET /api/characters/{characterId}`  
    Retrieve detailed information for a specific Marvel character by ID.  
    **Auth:** `character:read-detail`
-
-
 
 ### Comics API
 
@@ -173,8 +166,6 @@ This application follows security best practices by using environment variables 
    Retrieve detailed information for a specific Marvel comic by ID.  
    **Auth:** `comic:read-by-id`
 
-
-
 ### Authentication API
 
 - `POST /auth/login`  
@@ -185,8 +176,6 @@ This application follows security best practices by using environment variables 
 - `POST /auth/logout`  
    Logout current user and terminate session.  
    **Auth:** Public
-
-
 
 ### User Interaction Logs API
 
@@ -199,7 +188,6 @@ This application follows security best practices by using environment variables 
    Retrieve a paginated list of user interaction logs for a specific username.  
    **Query params:** `offset`, `limit`  
    **Auth:** `user-interaction:read-by-username` or `user-interaction:read-my-interactions` (for own logs)
-
 
 ### Example Usage
 
