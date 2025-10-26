@@ -29,6 +29,11 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 @EnableConfigurationProperties
 public class MarvelApplication {
 
+  /**
+   * Entry point for the Marvel API Spring Boot application.
+   *
+   * @param args command-line arguments passed to the application
+   */
   public static void main(String[] args) {
     SpringApplication.run(MarvelApplication.class, args);
   }

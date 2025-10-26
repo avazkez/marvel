@@ -1,7 +1,9 @@
 package com.avazquez.api.marvel.service;
 
+import com.avazquez.api.marvel.criteria.CharacterSearchCriteria;
 import com.avazquez.api.marvel.dto.MyPageable;
 import com.avazquez.api.marvel.persistence.integration.marvel.dto.CharacterDto;
+import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 
 /**

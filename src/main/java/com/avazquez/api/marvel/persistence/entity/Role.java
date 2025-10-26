@@ -57,7 +57,9 @@ public class Role implements GrantedAuthority {
 
   /** Enum for supported role types. */
   public static enum RoleEnum {
+    /** Customer role for standard users. */
     CUSTOMER,
+    /** Auditor role for users with audit permissions. */
     AUDITOR
   }
 }

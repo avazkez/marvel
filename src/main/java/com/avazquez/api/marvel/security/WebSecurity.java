@@ -48,7 +48,19 @@ public class WebSecurity {
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
         .authorizeHttpRequests(
             config -> {
-              config.requestMatchers("/error", "/auth/login", "/auth/logout").permitAll();
+              config
+                  .requestMatchers(
+                      "/error",
+                      "/auth/login",
+                      "/auth/logout",
+                      "/swagger-ui.html",
+                      "/swagger-ui/**",
+                      "/v3/api-docs",
+                      "/api-docs",
+                      "/v3/api-docs/**",
+                      "/swagger-resources/**",
+                      "/webjars/**")
+                  .permitAll();
               config.anyRequest().authenticated();
             })
         .authenticationProvider(authenticationProvider)
