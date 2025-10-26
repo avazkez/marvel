@@ -99,7 +99,7 @@ public class ComicRepository {
    * @return ComicDto containing detailed comic information
    * @throws EntityNotFoundException if no comic exists with the specified ID
    * @throws IllegalArgumentException if comicId is null or negative
-   * @throws MarvelApiException if Marvel API returns an error or is unreachable
+   * @throws RuntimeException if Marvel API returns an error or is unreachable
    */
   public ComicDto findById(Long comicId) {
     Map<String, String> marvelQueryParams = marvelApiConfig.getAuthenticationQueryParams();

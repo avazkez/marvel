@@ -1,52 +1,21 @@
 {
 	"info": {
-		"_postman_id": "39f7c8ed-c726-4456-b70c-1e12bbe3c3eb",
+		"_postman_id": "0f2abdd8-da99-4d7b-9fd3-405b7955ca2d",
 		"name": "Marvel Test",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "10922184"
+		"_exporter_id": "43196831",
+		"_collection_link": "https://orange-meadow-550807.postman.co/workspace/Team-Workspace~ff1346fe-b703-48c5-8457-52903f703b99/collection/43196831-0f2abdd8-da99-4d7b-9fd3-405b7955ca2d?action=share&source=collection_link&creator=43196831"
 	},
 	"item": [
 		{
-			"name": "Find all characters with criteria",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:8080/characters?name=3-D Man&comics=22506,22300000&series=19444445,20056663",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"characters"
-					],
-					"query": [
-						{
-							"key": "name",
-							"value": "3-D Man"
-						},
-						{
-							"key": "comics",
-							"value": "22506,22300000"
-						},
-						{
-							"key": "series",
-							"value": "19444445,20056663"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Find character details: image and description",
+			"name": "Find all characters by criteria",
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJST0xFX0FVRElUT1IiLCJjaGFyYWN0ZXI6cmVhZC1hbGwiLCJjaGFyYWN0ZXI6cmVhZC1kZXRhaWwiLCJjb21pYzpyZWFkLWFsbCIsImNvbWljOnJlYWQtYnktaWQiLCJ1c2VyLWludGVyYWN0aW9uOnJlYWQtbXktaW50ZXJhY3Rpb25zIiwidXNlci1pbnRlcmFjdGlvbjpyZWFkLWFsbCIsInVzZXItaW50ZXJhY3Rpb246cmVhZC1ieS11c2VybmFtZSJdLCJzdWIiOiJnY2FuYXMiLCJpYXQiOjE2OTY5OTIxMDgsImV4cCI6MTY5Njk5MzkwOH0.VjomIBM5dl6oNoChGDBHQSW8NUo2ZX1PlaXH-EVABb8",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IkNVU1RPTUVSIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9DVVNUT01FUiIsImNoYXJhY3RlcjpyZWFkLWFsbCIsImNoYXJhY3RlcjpyZWFkLWRldGFpbCIsImNvbWljOnJlYWQtYWxsIiwiY29taWM6cmVhZC1ieS1pZCIsInVzZXItaW50ZXJhY3Rpb246cmVhZC1teS1pbnRlcmFjdGlvbnMiXSwic3ViIjoiaXJvbm1hbiIsImlhdCI6MTc2MTQ3OTAwOCwiZXhwIjoxNzYxNDgwODA4fQ._DtWQYiTiDd57g_pnYmbCriWesu3fe67hPZypV-Nuz0",
 							"type": "string"
 						}
 					]
@@ -54,14 +23,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/characters/1011334",
+					"raw": "localhost:8080/api/characters?limit=5&offset=0",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"characters",
-						"1011334"
+						"api",
+						"characters"
 					],
 					"query": [
 						{
@@ -71,13 +40,21 @@
 						},
 						{
 							"key": "comics",
-							"value": "22506,22300",
+							"value": "22506,22300000",
 							"disabled": true
 						},
 						{
 							"key": "series",
-							"value": "1945,2005",
+							"value": "19444445,20056663",
 							"disabled": true
+						},
+						{
+							"key": "limit",
+							"value": "5"
+						},
+						{
+							"key": "offset",
+							"value": "0"
 						}
 					]
 				}
@@ -85,7 +62,7 @@
 			"response": []
 		},
 		{
-			"name": "find a singular character comics",
+			"name": "Find character by id",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -100,18 +77,57 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/comics?characterId=1011334",
+					"raw": "localhost:8080/api/characters/1010802",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
+						"api",
+						"characters",
+						"1010802"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find all comics by criteria",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJST0xFX0FVRElUT1IiLCJjaGFyYWN0ZXI6cmVhZC1hbGwiLCJjaGFyYWN0ZXI6cmVhZC1kZXRhaWwiLCJjb21pYzpyZWFkLWFsbCIsImNvbWljOnJlYWQtYnktaWQiLCJ1c2VyLWludGVyYWN0aW9uOnJlYWQtbXktaW50ZXJhY3Rpb25zIiwidXNlci1pbnRlcmFjdGlvbjpyZWFkLWFsbCIsInVzZXItaW50ZXJhY3Rpb246cmVhZC1ieS11c2VybmFtZSJdLCJzdWIiOiJnY2FuYXMiLCJpYXQiOjE2OTY5OTIxMDgsImV4cCI6MTY5Njk5MzkwOH0.VjomIBM5dl6oNoChGDBHQSW8NUo2ZX1PlaXH-EVABb8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/comics?characterId=1011334&limit=1&offset=0",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
 						"comics"
 					],
 					"query": [
 						{
 							"key": "characterId",
 							"value": "1011334"
+						},
+						{
+							"key": "limit",
+							"value": "1"
+						},
+						{
+							"key": "offset",
+							"value": "0"
 						}
 					]
 				}
@@ -119,7 +135,7 @@
 			"response": []
 		},
 		{
-			"name": "find all comics",
+			"name": "Find comic by id",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -134,81 +150,15 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/comics?characterId=1011334",
+					"raw": "localhost:8080/api/comics/82967",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"comics"
-					],
-					"query": [
-						{
-							"key": "characterId",
-							"value": "1011334"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Test directo a API",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJST0xFX0FVRElUT1IiLCJjaGFyYWN0ZXI6cmVhZC1hbGwiLCJjaGFyYWN0ZXI6cmVhZC1kZXRhaWwiLCJjb21pYzpyZWFkLWFsbCIsImNvbWljOnJlYWQtYnktaWQiLCJ1c2VyLWludGVyYWN0aW9uOnJlYWQtbXktaW50ZXJhY3Rpb25zIiwidXNlci1pbnRlcmFjdGlvbjpyZWFkLWFsbCIsInVzZXItaW50ZXJhY3Rpb246cmVhZC1ieS11c2VybmFtZSJdLCJzdWIiOiJnY2FuYXMiLCJpYXQiOjE2OTY5OTIxMDgsImV4cCI6MTY5Njk5MzkwOH0.VjomIBM5dl6oNoChGDBHQSW8NUo2ZX1PlaXH-EVABb8",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"username\":\"mhernandez\",\r\n    \"password\":\"clave789\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://gateway.marvel.com/v1/public/characters?ts=1696882653609&apikey=69f0b1ebf4482e575448903f2f1af371&hash=217db03410ded967a773cf5c7ff70f6b&name=3-D Man",
-					"protocol": "http",
-					"host": [
-						"gateway",
-						"marvel",
-						"com"
-					],
-					"path": [
-						"v1",
-						"public",
-						"characters"
-					],
-					"query": [
-						{
-							"key": "ts",
-							"value": "1696882653609"
-						},
-						{
-							"key": "apikey",
-							"value": "69f0b1ebf4482e575448903f2f1af371"
-						},
-						{
-							"key": "hash",
-							"value": "217db03410ded967a773cf5c7ff70f6b"
-						},
-						{
-							"key": "name",
-							"value": "3-D Man"
-						}
+						"api",
+						"comics",
+						"82967"
 					]
 				}
 			},
@@ -244,14 +194,14 @@
 			"response": []
 		},
 		{
-			"name": "find all - users interactions",
+			"name": "Find user interactions",
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJST0xFX0FVRElUT1IiLCJjaGFyYWN0ZXI6cmVhZC1hbGwiLCJjaGFyYWN0ZXI6cmVhZC1kZXRhaWwiLCJjb21pYzpyZWFkLWFsbCIsImNvbWljOnJlYWQtYnktaWQiLCJ1c2VyLWludGVyYWN0aW9uOnJlYWQtbXktaW50ZXJhY3Rpb25zIiwidXNlci1pbnRlcmFjdGlvbjpyZWFkLWFsbCIsInVzZXItaW50ZXJhY3Rpb246cmVhZC1ieS11c2VybmFtZSJdLCJzdWIiOiJnY2FuYXMiLCJpYXQiOjE2OTY5OTIxMDgsImV4cCI6MTY5Njk5MzkwOH0.VjomIBM5dl6oNoChGDBHQSW8NUo2ZX1PlaXH-EVABb8",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IkNVU1RPTUVSIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9DVVNUT01FUiIsImNoYXJhY3RlcjpyZWFkLWFsbCIsImNoYXJhY3RlcjpyZWFkLWRldGFpbCIsImNvbWljOnJlYWQtYWxsIiwiY29taWM6cmVhZC1ieS1pZCIsInVzZXItaW50ZXJhY3Rpb246cmVhZC1teS1pbnRlcmFjdGlvbnMiXSwic3ViIjoiaXJvbm1hbiIsImlhdCI6MTc2MTQ5NjMzMCwiZXhwIjoxNzYxNDk4MTMwfQ.txfu4e2NIjGQMdnupwRwpReAzfN4nOJsd82Xljk5xfM",
 							"type": "string"
 						}
 					]
@@ -259,14 +209,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/users-interactions/gcanas",
+					"raw": "localhost:8080/user-interaction-logs/ironman",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"users-interactions",
-						"gcanas"
+						"user-interaction-logs",
+						"ironman"
 					]
 				}
 			},
@@ -282,7 +232,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"username\":\"gcanas\",\r\n    \"password\":\"contrasena456\"\r\n}",
+					"raw": "{\r\n    \"username\":\"ironman\",\r\n    \"password\":\"Friday1234\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -290,14 +240,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/authentication/authenticate",
+					"raw": "localhost:8080/auth/login",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"authentication",
-						"authenticate"
+						"auth",
+						"login"
 					]
 				}
 			},
