@@ -7,11 +7,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
@@ -105,5 +107,27 @@ public class AuthenticationService {
     } catch (Exception e) {
       throw new RuntimeException("Error during logout", e);
     }
+  }
+
+  /**
+   * Retrieves the currently authenticated user's details from the security context.
+   *
+   * <p>Throws an exception if the user is not authenticated or the authentication token is not of
+   * type {@link UsernamePasswordAuthenticationToken}.
+   *
+   * @return the {@link UserDetails} of the logged-in user
+   * @throws AuthenticationCredentialsNotFoundException if the user is not authenticated
+   */
+  public UserDetails getUserLoggedIn() {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+    if (!(authentication instanceof UsernamePasswordAuthenticationToken)) {
+      throw new AuthenticationCredentialsNotFoundException("User is not authenticated");
+    }
+
+    UsernamePasswordAuthenticationToken authToken =
+        (UsernamePasswordAuthenticationToken) authentication;
+
+    return (UserDetails) authToken.getPrincipal();
   }
 }
