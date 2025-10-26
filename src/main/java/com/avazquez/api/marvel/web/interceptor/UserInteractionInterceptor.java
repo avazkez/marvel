@@ -55,8 +55,6 @@ public class UserInteractionInterceptor implements HandlerInterceptor {
       @NonNull Object handler)
       throws Exception {
 
-    System.out.println("Intercepting request: " + request.getRequestURL());
-
     String requestURI = request.getRequestURI();
 
     if (requestURI.startsWith("/api/comics") || requestURI.startsWith("/api/characters")) {
