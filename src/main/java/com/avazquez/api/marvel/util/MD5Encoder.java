@@ -20,7 +20,7 @@ import org.springframework.util.DigestUtils;
  * @see org.springframework.security.crypto.password.PasswordEncoder
  */
 @Component("md5Encoder")
-public class MsdEncoder implements PasswordEncoder {
+public class MD5Encoder implements PasswordEncoder {
 
   /**
    * Encodes the given raw password using MD5 hash algorithm.
@@ -43,6 +43,6 @@ public class MsdEncoder implements PasswordEncoder {
    */
   @Override
   public boolean matches(CharSequence rawPassword, String encodedPassword) {
-    return encodedPassword.equals(encode(rawPassword));
+    return encode(rawPassword).equals(encodedPassword);
   }
 }
